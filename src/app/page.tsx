@@ -62,12 +62,12 @@ function Chip({
   return (
     <button
       onClick={onClick}
-      className={`px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider transition-all active:scale-95 ${
+      className={`px-3 py-1.5 md:px-4 md:py-2 text-[10px] md:text-[11px] font-mono uppercase tracking-wider transition-all hover:scale-105 active:scale-95 ${
         selected 
           ? variant === 'red'
-            ? 'border-2 border-[#FF2222] text-[#FF2222] bg-[#FF2222]/10 font-bold'
-            : 'border-2 border-[#FFE500] text-[#FFE500] bg-[#FFE500]/10 font-bold'
-          : 'border border-[#333] text-[#5A5A5A] hover:border-[#444]'
+            ? 'border-2 border-[#FF2222] text-[#FF2222] bg-[#FF2222]/10 font-bold shadow-sm'
+            : 'border-2 border-[#FFE500] text-[#FFE500] bg-[#FFE500]/10 font-bold shadow-sm'
+          : 'border border-[#333] text-[#8A8A8A] hover:border-[#555] hover:text-[#ABABAB]'
       }`}
     >
       {label}
@@ -88,14 +88,14 @@ function ToolChip({
   return (
     <button
       onClick={onClick}
-      className={`flex-shrink-0 px-3 py-2 text-[10px] font-mono uppercase tracking-wider transition-all active:scale-95 ${
+      className={`flex-shrink-0 px-3 py-2 md:px-4 md:py-2.5 text-[10px] md:text-[11px] font-mono uppercase tracking-wider transition-all hover:scale-105 active:scale-95 ${
         selected 
-          ? 'bg-[#FFE500] text-[#0A0A0A] border border-[#FFE500] font-bold'
-          : 'bg-[#1A1A1A] border border-[#2A2A2A] text-[#5A5A5A] hover:border-[#3A3A3A]'
+          ? 'bg-gradient-to-r from-[#FFE500] to-[#FFD000] text-[#0A0A0A] border border-[#FFE500] font-bold shadow-md'
+          : 'bg-gradient-to-br from-[#1A1A1A] to-[#141414] border border-[#2A2A2A] text-[#8A8A8A] hover:border-[#3A3A3A] hover:text-[#ABABAB]'
       }`}
     >
       {tool.name}
-      <span className={`ml-1 text-[7px] px-1 py-0.5 font-bold ${tool.free ? 'bg-[#00FF88] text-black' : 'bg-[#FF2222] text-white'}`}>
+      <span className={`ml-1.5 text-[7px] px-1.5 py-0.5 font-bold rounded-sm ${tool.free ? 'bg-[#00FF88] text-black' : 'bg-[#FF2222] text-white'}`}>
         {tool.free ? 'FREE' : 'PAID'}
       </span>
     </button>
@@ -149,25 +149,32 @@ function Header() {
   }, [])
 
   return (
-    <header ref={headerRef} className="h-[52px] flex items-center justify-between px-4 bg-[#FFE500] flex-shrink-0 relative z-10">
-      <div className="font-['Barlow_Condensed'] text-[32px] font-black tracking-wider text-[#0A0A0A] flex items-center gap-2.5">
-        AVS
-        <span className="bg-[#0A0A0A] text-[#FFE500] text-[9px] font-mono font-bold px-1.5 py-0.5 tracking-wider">
-          2026
+    <header ref={headerRef} className="h-[56px] md:h-[64px] flex items-center justify-between px-4 md:px-8 bg-gradient-to-r from-[#FFE500] via-[#FFE500] to-[#FFD000] flex-shrink-0 relative z-10 shadow-lg">
+      <div className="flex items-center gap-3">
+        <div className="font-['Barlow_Condensed'] text-[28px] md:text-[36px] font-black tracking-wider text-[#0A0A0A] flex items-center gap-2">
+          AVS
+          <span className="bg-[#0A0A0A] text-[#FFE500] text-[8px] md:text-[9px] font-mono font-bold px-2 py-1 tracking-wider rounded-sm">
+            2026
+          </span>
+        </div>
+        <span className="hidden md:inline-block text-[11px] font-mono text-[#0A0A0A]/60 uppercase tracking-widest">
+          AI Visual Synthesis
         </span>
       </div>
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-2">
         <button 
           onClick={toggleInverted}
-          className="w-[34px] h-[34px] bg-[#0A0A0A] flex items-center justify-center text-[#FFE500] transition-transform active:scale-90"
+          className="w-[36px] h-[36px] md:w-[40px] md:h-[40px] bg-[#0A0A0A] flex items-center justify-center text-[#FFE500] transition-all hover:scale-105 active:scale-95 rounded-sm shadow-md"
+          title="Toggle theme"
         >
-          <Sun className="w-4 h-4" />
+          <Sun className="w-4 h-4 md:w-5 md:h-5" />
         </button>
         <button 
           onClick={() => setSaveModalOpen(true)}
-          className="w-[34px] h-[34px] bg-[#0A0A0A] flex items-center justify-center text-[#FFE500] transition-transform active:scale-90"
+          className="w-[36px] h-[36px] md:w-[40px] md:h-[40px] bg-[#0A0A0A] flex items-center justify-center text-[#FFE500] transition-all hover:scale-105 active:scale-95 rounded-sm shadow-md"
+          title="Menu"
         >
-          <Menu className="w-4 h-4" />
+          <Menu className="w-4 h-4 md:w-5 md:h-5" />
         </button>
       </div>
     </header>
@@ -222,20 +229,20 @@ function TabBar() {
   ] as const
 
   return (
-    <nav ref={tabBarRef} className="h-[68px] flex items-stretch bg-[#0A0A0A] border-t-2 border-[#FFE500] flex-shrink-0 relative z-50 overflow-hidden">
-      <div className="tab-indicator absolute top-0 left-0 w-[20%] h-full bg-[#FFE500] pointer-events-none" style={{ transform: 'translateX(0)' }} />
+    <nav ref={tabBarRef} className="h-[68px] md:h-[72px] flex items-stretch bg-[#0A0A0A] border-t-2 border-[#FFE500] flex-shrink-0 relative z-50 overflow-hidden shadow-[0_-4px_20px_rgba(0,0,0,0.3)]">
+      <div className="tab-indicator absolute top-0 left-0 w-[20%] h-full bg-gradient-to-b from-[#FFE500] to-[#FFD000] pointer-events-none" style={{ transform: 'translateX(0)' }} />
       {tabs.map((tab) => (
         <button
           key={tab.id}
           onClick={() => setActiveTab(tab.id)}
-          className={`flex-1 flex flex-col items-center justify-center gap-1 transition-colors relative z-10 ${
+          className={`flex-1 flex flex-col items-center justify-center gap-1 md:gap-1.5 transition-all relative z-10 group ${
             activeTab === tab.id 
               ? 'text-[#0A0A0A]' 
-              : 'text-[#5A5A5A] hover:text-[#7A7A7A]'
+              : 'text-[#5A5A5A] hover:text-[#ABABAB]'
           }`}
         >
-          <tab.icon className="w-[18px] h-[18px]" />
-          <span className="text-[8px] font-mono font-bold uppercase tracking-wider">{tab.label}</span>
+          <tab.icon className={`w-[18px] h-[18px] md:w-[20px] md:h-[20px] transition-transform group-hover:scale-110 ${activeTab === tab.id ? 'drop-shadow-sm' : ''}`} />
+          <span className={`text-[8px] md:text-[9px] font-mono font-bold uppercase tracking-wider ${activeTab === tab.id ? 'text-[#0A0A0A]' : ''}`}>{tab.label}</span>
         </button>
       ))}
     </nav>
@@ -527,28 +534,28 @@ function BuildScreen() {
   return (
     <div className="h-full overflow-y-auto overflow-x-hidden overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
       {/* Sticky Output */}
-      <div ref={outputRef} className="sticky top-0 z-10 bg-[#0A0A0A] px-4 py-3.5 border-b-2 border-[#FFE500]">
-        <div className="flex justify-between items-center mb-2">
+      <div ref={outputRef} className="sticky top-0 z-10 bg-gradient-to-b from-[#0A0A0A] to-[#0A0A0A]/95 backdrop-blur-sm px-4 md:px-6 py-4 md:py-5 border-b-2 border-[#FFE500] shadow-lg">
+        <div className="flex justify-between items-center mb-3">
           <StrengthMeter state={promptState} />
-          <span className="font-mono text-[9px] text-[#5A5A5A] uppercase tracking-wider">{prompt.length} chars</span>
+          <span className="font-mono text-[10px] md:text-[11px] text-[#8A8A8A] uppercase tracking-wider">{prompt.length} chars</span>
         </div>
-        <div className="bg-[#1A1A1A] border-2 border-[#FFE500] p-3.5 font-mono text-[11px] leading-relaxed text-[#F5F5F5] min-h-[72px] break-words">
+        <div className="bg-gradient-to-br from-[#1A1A1A] to-[#141414] border-2 border-[#FFE500] p-4 md:p-5 font-mono text-[11px] md:text-[13px] leading-relaxed text-[#F5F5F5] min-h-[80px] md:min-h-[100px] break-words shadow-inner rounded-sm">
           {prompt}
         </div>
-        <div className="flex gap-1.5 mt-2.5">
-          <Button onClick={copyPrompt} className="flex-1 bg-[#FFE500] text-[#0A0A0A] font-['Barlow_Condensed'] text-[18px] font-black tracking-wider uppercase h-auto py-3 hover:bg-[#E6CE00]">COPY</Button>
-          <Button variant="outline" onClick={() => useAVSStore.getState().setSaveModalOpen(true)} className="flex-1 border border-[#333] bg-transparent text-[#F5F5F5] font-['Barlow_Condensed'] text-[13px] font-black tracking-wider uppercase h-auto py-3 hover:border-[#FFE500] hover:text-[#FFE500]">SAVE</Button>
-          <Button variant="outline" className="flex-1 border border-[#333] bg-transparent text-[#F5F5F5] font-['Barlow_Condensed'] text-[13px] font-black tracking-wider uppercase h-auto py-3 hover:border-[#FFE500] hover:text-[#FFE500]">SHARE</Button>
+        <div className="flex gap-2 mt-3">
+          <Button onClick={copyPrompt} className="flex-1 bg-gradient-to-r from-[#FFE500] to-[#FFD000] text-[#0A0A0A] font-['Barlow_Condensed'] text-[16px] md:text-[18px] font-black tracking-wider uppercase h-auto py-3 md:py-3.5 hover:from-[#FFD000] hover:to-[#FFCC00] shadow-md transition-all">COPY</Button>
+          <Button variant="outline" onClick={() => useAVSStore.getState().setSaveModalOpen(true)} className="flex-1 border-2 border-[#333] bg-transparent text-[#F5F5F5] font-['Barlow_Condensed'] text-[12px] md:text-[14px] font-bold tracking-wider uppercase h-auto py-3 md:py-3.5 hover:border-[#FFE500] hover:text-[#FFE500] transition-all">SAVE</Button>
+          <Button variant="outline" className="flex-1 border-2 border-[#333] bg-transparent text-[#F5F5F5] font-['Barlow_Condensed'] text-[12px] md:text-[14px] font-bold tracking-wider uppercase h-auto py-3 md:py-3.5 hover:border-[#FFE500] hover:text-[#FFE500] transition-all">SHARE</Button>
         </div>
       </div>
 
       {/* Tool Selector */}
-      <div className="px-4 pt-4 pb-2.5">
-        <div className="flex items-center gap-2.5 mb-2.5">
-          <span className="font-mono text-[9px] tracking-widest uppercase text-[#5A5A5A]">Target Tool</span>
-          <div className="flex-1 h-px bg-[#2A2A2A]" />
+      <div className="px-4 md:px-6 pt-5 pb-3">
+        <div className="flex items-center gap-3 mb-3">
+          <span className="font-mono text-[10px] md:text-[11px] tracking-widest uppercase text-[#8A8A8A] font-medium">Target Tool</span>
+          <div className="flex-1 h-px bg-gradient-to-r from-[#2A2A2A] to-transparent" />
         </div>
-        <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-hide" style={{ WebkitOverflowScrolling: 'touch' }}>
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide" style={{ WebkitOverflowScrolling: 'touch' }}>
           {TOOLS.map((tool) => (
             <ToolChip
               key={tool.id}
@@ -561,14 +568,14 @@ function BuildScreen() {
       </div>
 
       {/* Parameters Card */}
-      <div ref={chipsRef} className="mx-4 bg-[#111111] border border-[#2A2A2A]">
+      <div ref={chipsRef} className="mx-4 md:mx-6 bg-gradient-to-br from-[#151515] to-[#111111] border border-[#2A2A2A] rounded-sm overflow-hidden">
         {/* Subject */}
-        <div className="param-row p-3.5 border-b border-[#1F1F1F]">
-          <div className="flex justify-between items-center mb-2.5">
-            <span className="font-mono text-[9px] tracking-widest uppercase text-[#5A5A5A]">Subject</span>
-            <span className="font-mono text-[9px] text-[#FFE500] font-bold uppercase">{promptState.subject}</span>
+        <div className="param-row p-4 md:p-5 border-b border-[#222]">
+          <div className="flex justify-between items-center mb-3">
+            <span className="font-mono text-[10px] md:text-[11px] tracking-widest uppercase text-[#8A8A8A] font-medium">Subject</span>
+            <span className="font-mono text-[10px] md:text-[11px] text-[#FFE500] font-bold uppercase">{promptState.subject}</span>
           </div>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {PARAMS.subject.opts.map((opt) => (
               <Chip
                 key={opt}
@@ -582,18 +589,18 @@ function BuildScreen() {
             value={promptState.subjectDetail}
             onChange={(e) => setPromptState({ subjectDetail: e.target.value })}
             placeholder="Add detail (optional)"
-            className="mt-2 bg-[#0A0A0A] border border-[#333] text-[11px] font-mono text-[#F5F5F5] placeholder:text-[#5A5A5A] resize-none focus:border-[#FFE500]"
+            className="mt-3 bg-[#0A0A0A] border border-[#333] text-[11px] md:text-[12px] font-mono text-[#F5F5F5] placeholder:text-[#5A5A5A] resize-none focus:border-[#FFE500] rounded-sm"
             rows={1}
           />
         </div>
 
         {/* Style */}
-        <div className="param-row p-3.5 border-b border-[#1F1F1F]">
-          <div className="flex justify-between items-center mb-2.5">
-            <span className="font-mono text-[9px] tracking-widest uppercase text-[#5A5A5A]">Style</span>
-            <span className="font-mono text-[9px] text-[#FFE500] font-bold uppercase">{promptState.style}</span>
+        <div className="param-row p-4 md:p-5 border-b border-[#222]">
+          <div className="flex justify-between items-center mb-3">
+            <span className="font-mono text-[10px] md:text-[11px] tracking-widest uppercase text-[#8A8A8A] font-medium">Style</span>
+            <span className="font-mono text-[10px] md:text-[11px] text-[#FFE500] font-bold uppercase">{promptState.style}</span>
           </div>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {PARAMS.style.opts.map((opt) => (
               <Chip
                 key={opt}
@@ -606,12 +613,12 @@ function BuildScreen() {
         </div>
 
         {/* Lighting */}
-        <div className="param-row p-3.5 border-b border-[#1F1F1F]">
-          <div className="flex justify-between items-center mb-2.5">
-            <span className="font-mono text-[9px] tracking-widest uppercase text-[#5A5A5A]">Lighting</span>
-            <span className="font-mono text-[9px] text-[#FFE500] font-bold uppercase">{promptState.lighting}</span>
+        <div className="param-row p-4 md:p-5 border-b border-[#222]">
+          <div className="flex justify-between items-center mb-3">
+            <span className="font-mono text-[10px] md:text-[11px] tracking-widest uppercase text-[#8A8A8A] font-medium">Lighting</span>
+            <span className="font-mono text-[10px] md:text-[11px] text-[#FFE500] font-bold uppercase">{promptState.lighting}</span>
           </div>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {PARAMS.lighting.opts.map((opt) => (
               <Chip
                 key={opt}
@@ -624,12 +631,12 @@ function BuildScreen() {
         </div>
 
         {/* Camera */}
-        <div className="param-row p-3.5 border-b border-[#1F1F1F]">
-          <div className="flex justify-between items-center mb-2.5">
-            <span className="font-mono text-[9px] tracking-widest uppercase text-[#5A5A5A]">Camera</span>
-            <span className="font-mono text-[9px] text-[#FFE500] font-bold uppercase">{promptState.camera}</span>
+        <div className="param-row p-4 md:p-5 border-b border-[#222]">
+          <div className="flex justify-between items-center mb-3">
+            <span className="font-mono text-[10px] md:text-[11px] tracking-widest uppercase text-[#8A8A8A] font-medium">Camera</span>
+            <span className="font-mono text-[10px] md:text-[11px] text-[#FFE500] font-bold uppercase">{promptState.camera}</span>
           </div>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {PARAMS.camera.opts.map((opt) => (
               <Chip
                 key={opt}
@@ -642,12 +649,12 @@ function BuildScreen() {
         </div>
 
         {/* Color Grade */}
-        <div className="param-row p-3.5 border-b border-[#1F1F1F]">
-          <div className="flex justify-between items-center mb-2.5">
-            <span className="font-mono text-[9px] tracking-widest uppercase text-[#5A5A5A]">Color Grade</span>
-            <span className="font-mono text-[9px] text-[#FFE500] font-bold uppercase">{promptState.colorGrade}</span>
+        <div className="param-row p-4 md:p-5 border-b border-[#222]">
+          <div className="flex justify-between items-center mb-3">
+            <span className="font-mono text-[10px] md:text-[11px] tracking-widest uppercase text-[#8A8A8A] font-medium">Color Grade</span>
+            <span className="font-mono text-[10px] md:text-[11px] text-[#FFE500] font-bold uppercase">{promptState.colorGrade}</span>
           </div>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {PARAMS.color.opts.map((opt) => (
               <Chip
                 key={opt}
@@ -660,12 +667,12 @@ function BuildScreen() {
         </div>
 
         {/* Mood */}
-        <div className="param-row p-3.5 border-b border-[#1F1F1F]">
-          <div className="flex justify-between items-center mb-2.5">
-            <span className="font-mono text-[9px] tracking-widest uppercase text-[#5A5A5A]">Mood</span>
-            <span className="font-mono text-[9px] text-[#FFE500] font-bold uppercase">{promptState.mood}</span>
+        <div className="param-row p-4 md:p-5 border-b border-[#222]">
+          <div className="flex justify-between items-center mb-3">
+            <span className="font-mono text-[10px] md:text-[11px] tracking-widest uppercase text-[#8A8A8A] font-medium">Mood</span>
+            <span className="font-mono text-[10px] md:text-[11px] text-[#FFE500] font-bold uppercase">{promptState.mood}</span>
           </div>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {PARAMS.mood.opts.map((opt) => (
               <Chip
                 key={opt}
@@ -678,12 +685,12 @@ function BuildScreen() {
         </div>
 
         {/* Aspect Ratio */}
-        <div className="param-row p-3.5">
-          <div className="flex justify-between items-center mb-2.5">
-            <span className="font-mono text-[9px] tracking-widest uppercase text-[#5A5A5A]">Aspect Ratio</span>
-            <span className="font-mono text-[9px] text-[#FFE500] font-bold uppercase">{promptState.ar}</span>
+        <div className="param-row p-4 md:p-5">
+          <div className="flex justify-between items-center mb-3">
+            <span className="font-mono text-[10px] md:text-[11px] tracking-widest uppercase text-[#8A8A8A] font-medium">Aspect Ratio</span>
+            <span className="font-mono text-[10px] md:text-[11px] text-[#FFE500] font-bold uppercase">{promptState.ar}</span>
           </div>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {PARAMS.ar.opts.map((opt) => (
               <Chip
                 key={opt}
@@ -697,23 +704,24 @@ function BuildScreen() {
       </div>
 
       {/* Physics Layer */}
-      <div className="mt-5 bg-[#111111] border-t-2 border-[#FFE500] border-b border-[#2A2A2A] px-4 py-2.5 font-['Barlow_Condensed'] text-[18px] font-black tracking-wider uppercase text-[#FFE500]">
-        ⚡ PHYSICS LAYER
+      <div className="mt-6 md:mt-8 bg-gradient-to-r from-[#1A1A1A] to-[#111111] border-t-2 border-[#FFE500] border-b border-[#2A2A2A] px-4 md:px-6 py-3 md:py-4 flex items-center gap-3">
+        <span className="text-[24px]">⚡</span>
+        <span className="font-['Barlow_Condensed'] text-[18px] md:text-[20px] font-black tracking-wider uppercase text-[#FFE500]">PHYSICS LAYER</span>
       </div>
 
       {/* Kelvin Slider */}
-      <div className="px-4 py-3.5">
-        <div className="flex justify-between items-end mb-2.5">
+      <div className="px-4 md:px-6 py-5 md:py-6 bg-[#0A0A0A]">
+        <div className="flex justify-between items-end mb-4">
           <div>
-            <div className="font-mono text-[9px] tracking-widest uppercase text-[#5A5A5A] mb-1">Color Temp</div>
-            <div className="font-['Barlow_Condensed'] text-[44px] font-black leading-none text-[#FFE500]">
-              {promptState.kelvin}<span className="text-[18px] font-mono text-[#5A5A5A]">K</span>
+            <div className="font-mono text-[10px] md:text-[11px] tracking-widest uppercase text-[#8A8A8A] mb-2">Color Temperature</div>
+            <div className="font-['Barlow_Condensed'] text-[48px] md:text-[56px] font-black leading-none text-[#FFE500]">
+              {promptState.kelvin}<span className="text-[20px] md:text-[24px] font-mono text-[#5A5A5A]">K</span>
             </div>
           </div>
           <div className="text-right">
-            <div className="font-mono text-[9px] tracking-wider uppercase text-[#5A5A5A] mb-1.5">{kelvinToDesc(promptState.kelvin)}</div>
+            <div className="font-mono text-[10px] md:text-[11px] tracking-wider uppercase text-[#8A8A8A] mb-2">{kelvinToDesc(promptState.kelvin)}</div>
             <div 
-              className="w-14 h-6 border border-[#333]"
+              className="w-16 h-8 md:w-20 md:h-10 border-2 border-[#333] rounded-sm shadow-inner"
               style={{ background: kelvinToColor(promptState.kelvin) }}
             />
           </div>
@@ -724,14 +732,14 @@ function BuildScreen() {
           min={1000}
           max={10000}
           step={100}
-          className="mt-2"
+          className="mt-3"
         />
       </div>
 
       {/* Camera Body */}
-      <div className="px-4 mb-5">
-        <div className="font-mono text-[9px] tracking-widest uppercase text-[#5A5A5A] mb-2.5">Camera Body</div>
-        <div className="flex flex-wrap gap-1.5">
+      <div className="px-4 md:px-6 py-4 md:py-5 bg-[#0A0A0A]">
+        <div className="font-mono text-[10px] md:text-[11px] tracking-widest uppercase text-[#8A8A8A] mb-3 font-medium">Camera Body</div>
+        <div className="flex flex-wrap gap-2">
           <Chip
             label="— none —"
             selected={!promptState.cameraBody}
@@ -749,9 +757,9 @@ function BuildScreen() {
       </div>
 
       {/* Lens */}
-      <div className="px-4 pb-8">
-        <div className="font-mono text-[9px] tracking-widest uppercase text-[#5A5A5A] mb-2.5">Lens</div>
-        <div className="flex flex-wrap gap-1.5">
+      <div className="px-4 md:px-6 py-4 md:py-5 pb-8 md:pb-10 bg-[#0A0A0A]">
+        <div className="font-mono text-[10px] md:text-[11px] tracking-widest uppercase text-[#8A8A8A] mb-3 font-medium">Lens</div>
+        <div className="flex flex-wrap gap-2">
           <Chip
             label="— none —"
             selected={!promptState.lens}
