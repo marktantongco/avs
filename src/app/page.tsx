@@ -816,14 +816,14 @@ function CompareScreen() {
   return (
     <div className="h-full overflow-y-auto overflow-x-hidden overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
       {/* Header */}
-      <div className="bg-[#FFE500] px-4 py-4 pb-3">
-        <div className="font-['Barlow_Condensed'] text-[40px] font-black text-[#0A0A0A] leading-[0.9] uppercase">COMPARE<br/>TOOLS</div>
-        <div className="font-mono text-[9px] text-[#0A0A0A]/50 mt-1.5 uppercase tracking-wider">Find the right AI for your workflow</div>
+      <div className="bg-gradient-to-r from-[#FFE500] via-[#FFE500] to-[#FFD000] px-4 md:px-6 py-4 md:py-5">
+        <div className="font-['Barlow_Condensed'] text-[36px] md:text-[48px] font-black text-[#0A0A0A] leading-[0.9] uppercase">COMPARE<br/>TOOLS</div>
+        <div className="font-mono text-[10px] md:text-[11px] text-[#0A0A0A]/60 mt-2 uppercase tracking-wider">Find the right AI for your workflow</div>
       </div>
 
       {/* Filters */}
-      <div className="px-4 py-3 border-b border-[#1F1F1F]">
-        <div className="flex gap-1.5">
+      <div className="px-4 md:px-6 py-3 md:py-4 border-b border-[#222] bg-[#0A0A0A]">
+        <div className="flex gap-2">
           {(['all', 'free', 'image', 'video'] as const).map((f) => (
             <Chip
               key={f}
@@ -843,47 +843,60 @@ function CompareScreen() {
           const scoreColor = tool.score >= 9 ? '#00FF88' : tool.score >= 8.5 ? '#FFE500' : '#FF2222'
 
           return (
-            <div key={tool.id} className="tool-card bg-[#111111] border-b border-[#1F1F1F]">
+            <div key={tool.id} className="tool-card bg-gradient-to-r from-[#151515] to-[#111111] border-b border-[#222] hover:from-[#1A1A1A] hover:to-[#151515] transition-colors">
               <button
                 onClick={() => setOpenTool(isOpen ? null : tool.id)}
-                className="w-full flex items-center justify-between p-3.5 text-left active:bg-[#1A1A1A]"
+                className="w-full flex items-center justify-between p-4 md:p-5 text-left group"
               >
-                <div>
-                  <div className="font-['Barlow_Condensed'] text-[22px] font-black tracking-wide uppercase">{tool.name}</div>
-                  <div className="flex gap-0.5 mt-1">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <div key={i} className={`w-3.5 h-0.5 ${i <= details.difficulty ? 'bg-[#FFE500]' : 'bg-[#2A2A2A]'}`} />
-                    ))}
+                <div className="flex items-center gap-4">
+                  <div className={`w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-sm font-bold text-[14px] ${tool.free ? 'bg-[#00FF88]/20 text-[#00FF88]' : 'bg-[#FF2222]/20 text-[#FF2222]'}`}>
+                    {tool.free ? '✓' : '$'}
+                  </div>
+                  <div>
+                    <div className="font-['Barlow_Condensed'] text-[20px] md:text-[24px] font-black tracking-wide uppercase text-[#F5F5F5] group-hover:text-white transition-colors">{tool.name}</div>
+                    <div className="flex items-center gap-3 mt-1">
+                      <div className="flex gap-0.5">
+                        {[1, 2, 3, 4, 5].map((i) => (
+                          <div key={i} className={`w-2 h-0.5 md:w-2.5 md:h-0.5 rounded-full ${i <= details.difficulty ? 'bg-[#FFE500]' : 'bg-[#2A2A2A]'}`} />
+                        ))}
+                      </div>
+                      <span className="font-mono text-[9px] md:text-[10px] text-[#5A5A5A] uppercase tracking-wider">Difficulty</span>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="font-['Barlow_Condensed'] text-[20px] font-black" style={{ color: scoreColor }}>{tool.score}</span>
-                  <ChevronRight className={`w-5 h-5 text-[#FFE500] transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`} />
+                <div className="flex items-center gap-3 md:gap-4">
+                  <div className="text-right">
+                    <span className="font-['Barlow_Condensed'] text-[24px] md:text-[28px] font-black" style={{ color: scoreColor }}>{tool.score}</span>
+                    <span className="font-mono text-[9px] md:text-[10px] text-[#5A5A5A] block uppercase">Score</span>
+                  </div>
+                  <ChevronRight className={`w-5 h-5 md:w-6 md:h-6 text-[#FFE500] transition-transform duration-200 ${isOpen ? 'rotate-90' : 'group-hover:translate-x-1'}`} />
                 </div>
               </button>
               {isOpen && (
-                <div className="px-4 pb-4 border-t border-[#1F1F1F]">
-                  <div className="flex justify-between items-center py-2 border-b border-[#1A1A1A] text-[12px]">
-                    <span className="font-mono text-[9px] uppercase tracking-wider text-[#5A5A5A]">Best for</span>
-                    <span className="font-mono text-[10px] text-[#F5F5F5] text-right max-w-[55%]">{details.best}</span>
-                  </div>
-                  <div className="flex justify-between items-center py-2 border-b border-[#1A1A1A] text-[12px]">
-                    <span className="font-mono text-[9px] uppercase tracking-wider text-[#5A5A5A]">Syntax</span>
-                    <span className="font-mono text-[10px] text-[#F5F5F5] text-right max-w-[55%]">{details.syntax}</span>
-                  </div>
-                  <div className="flex justify-between items-center py-2 border-b border-[#1A1A1A] text-[12px]">
-                    <span className="font-mono text-[9px] uppercase tracking-wider text-[#5A5A5A]">Strength</span>
-                    <span className="font-mono text-[10px] text-[#F5F5F5] text-right max-w-[55%]">{details.strength}</span>
-                  </div>
-                  <div className="flex justify-between items-center py-2 text-[12px]">
-                    <span className="font-mono text-[9px] uppercase tracking-wider text-[#5A5A5A]">Free tier</span>
-                    <span className="font-mono text-[10px] font-bold" style={{ color: tool.free ? '#00FF88' : '#FF2222' }}>
-                      {tool.free ? 'YES' : 'NO'}
-                    </span>
+                <div className="px-4 md:px-6 pb-5 border-t border-[#222] bg-[#0A0A0A]">
+                  <div className="grid grid-cols-2 gap-3 py-4">
+                    <div className="bg-[#1A1A1A] p-3 rounded-sm">
+                      <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-wider text-[#FFE500] block mb-1.5">Best For</span>
+                      <span className="font-mono text-[11px] md:text-[12px] text-[#F5F5F5]">{details.best}</span>
+                    </div>
+                    <div className="bg-[#1A1A1A] p-3 rounded-sm">
+                      <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-wider text-[#FFE500] block mb-1.5">Syntax</span>
+                      <span className="font-mono text-[11px] md:text-[12px] text-[#F5F5F5]">{details.syntax}</span>
+                    </div>
+                    <div className="bg-[#1A1A1A] p-3 rounded-sm">
+                      <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-wider text-[#FFE500] block mb-1.5">Strength</span>
+                      <span className="font-mono text-[11px] md:text-[12px] text-[#F5F5F5]">{details.strength}</span>
+                    </div>
+                    <div className="bg-[#1A1A1A] p-3 rounded-sm">
+                      <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-wider text-[#FFE500] block mb-1.5">Free Tier</span>
+                      <span className="font-mono text-[11px] md:text-[12px] font-bold" style={{ color: tool.free ? '#00FF88' : '#FF2222' }}>
+                        {tool.free ? 'YES ✓' : 'NO ✗'}
+                      </span>
+                    </div>
                   </div>
                   <Button
                     onClick={() => selectTool(tool.id)}
-                    className="w-full mt-3 bg-[#FFE500] text-[#0A0A0A] font-['Barlow_Condensed'] text-[16px] font-black tracking-wider uppercase h-auto py-3 hover:bg-[#E6CE00]"
+                    className="w-full bg-gradient-to-r from-[#FFE500] to-[#FFD000] text-[#0A0A0A] font-['Barlow_Condensed'] text-[16px] md:text-[18px] font-black tracking-wider uppercase h-auto py-3 md:py-4 hover:from-[#FFD000] hover:to-[#FFCC00] shadow-md transition-all"
                   >
                     USE {tool.name.toUpperCase()} →
                   </Button>
@@ -931,17 +944,20 @@ function LearnScreen() {
   return (
     <div className="h-full overflow-y-auto overflow-x-hidden overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
       {/* Progress Header */}
-      <div className="bg-[#111111] border-b-2 border-[#FFE500] px-4 py-3.5">
-        <div className="flex justify-between items-baseline mb-2.5">
-          <span className="font-['Barlow_Condensed'] text-[28px] font-black uppercase tracking-wide">LEARNING PATH</span>
-          <span className="font-mono text-[11px] text-[#FFE500]">{done}/12</span>
+      <div className="bg-gradient-to-br from-[#1A1A1A] to-[#111111] border-b-2 border-[#FFE500] px-4 md:px-6 py-4 md:py-5">
+        <div className="flex justify-between items-baseline mb-3">
+          <span className="font-['Barlow_Condensed'] text-[24px] md:text-[32px] font-black uppercase tracking-wide text-[#F5F5F5]">LEARNING PATH</span>
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-[14px] md:text-[16px] text-[#FFE500] font-bold">{done}</span>
+            <span className="font-mono text-[12px] text-[#5A5A5A]">/ 12</span>
+          </div>
         </div>
-        <Progress value={(done / 12) * 100} className="h-1 bg-[#2A2A2A]" />
-        <div className="flex justify-between font-mono text-[8px] text-[#5A5A5A] mt-1.5 uppercase tracking-wider">
-          <span>Foundation</span>
-          <span>Creative</span>
-          <span>Technical</span>
-          <span>Advanced</span>
+        <Progress value={(done / 12) * 100} className="h-2 bg-[#2A2A2A]" />
+        <div className="flex justify-between font-mono text-[9px] md:text-[10px] text-[#5A5A5A] mt-2 uppercase tracking-wider">
+          <span className="text-[#FFE500]">Foundation</span>
+          <span className={done >= 4 ? 'text-[#00FF88]' : ''}>Creative</span>
+          <span className={done >= 8 ? 'text-[#00FF88]' : ''}>Technical</span>
+          <span className={done >= 10 ? 'text-[#00FF88]' : ''}>Advanced</span>
         </div>
       </div>
 
@@ -958,62 +974,62 @@ function LearnScreen() {
           const isOpen = openLesson === lesson.id
 
           return (
-            <div key={lesson.id} className={`lesson-card bg-[#111111] border-b border-[#1F1F1F] transition-all ${isLocked ? 'opacity-40' : ''}`}>
+            <div key={lesson.id} className={`lesson-card bg-gradient-to-r from-[#151515] to-[#111111] border-b border-[#222] transition-all ${isLocked ? 'opacity-50' : ''}`}>
               <button
                 onClick={() => !isLocked && setOpenLesson(isOpen ? null : lesson.id)}
-                className={`w-full flex items-center gap-3 p-3.5 text-left ${isLocked ? 'cursor-not-allowed' : 'active:bg-[#1A1A1A]'}`}
+                className={`w-full flex items-center gap-4 p-4 md:p-5 text-left group ${isLocked ? 'cursor-not-allowed' : 'hover:from-[#1A1A1A]'}`}
               >
-                <div className={`w-[26px] h-[26px] flex items-center justify-center flex-shrink-0 text-[10px] font-mono font-bold transition-all ${
+                <div className={`w-10 h-10 md:w-12 md:h-12 flex items-center justify-center flex-shrink-0 text-[12px] md:text-[14px] font-mono font-bold rounded-sm transition-all ${
                   isDone 
                     ? 'bg-[#00FF88] text-black' 
                     : isActive 
-                      ? 'bg-[#FFE500] text-[#0A0A0A] animate-pulse' 
+                      ? 'bg-gradient-to-br from-[#FFE500] to-[#FFD000] text-[#0A0A0A] shadow-md' 
                       : isLocked
                         ? 'bg-[#1A1A1A] border border-[#2A2A2A] text-[#5A5A5A]'
-                        : 'border border-[#2A2A2A] text-[#5A5A5A]'
+                        : 'bg-[#1A1A1A] border border-[#333] text-[#8A8A8A]'
                 }`}>
-                  {isDone ? <Check className="w-4 h-4" /> : isLocked ? <Lock className="w-3 h-3" /> : lesson.id}
+                  {isDone ? <Check className="w-5 h-5 md:w-6 md:h-6" /> : isLocked ? <Lock className="w-4 h-4 md:w-5 md:h-5" /> : lesson.id}
                 </div>
-                <div className="flex-1">
-                  <div className="text-[13px] font-semibold mb-0.5">{lesson.title}</div>
-                  <div className="flex items-center gap-2">
-                    <div className="font-mono text-[8px] tracking-wider uppercase" style={{ color: lesson.catColor }}>{lesson.cat}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[14px] md:text-[16px] font-semibold text-[#F5F5F5] group-hover:text-white transition-colors mb-1">{lesson.title}</div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="inline-block px-2 py-0.5 font-mono text-[9px] md:text-[10px] tracking-wider uppercase rounded-sm" style={{ backgroundColor: `${lesson.catColor}20`, color: lesson.catColor }}>{lesson.cat}</span>
                     {isLocked && (
-                      <span className="text-[7px] font-mono text-[#5A5A5A] uppercase tracking-wider">
+                      <span className="text-[8px] md:text-[9px] font-mono text-[#5A5A5A] uppercase tracking-wider">
                         · Complete previous lesson
                       </span>
                     )}
                     {isActive && (
-                      <span className="text-[7px] font-mono text-[#FFE500] uppercase tracking-wider animate-pulse">
+                      <span className="text-[8px] md:text-[9px] font-mono text-[#FFE500] uppercase tracking-wider animate-pulse">
                         · Ready to start
                       </span>
                     )}
                   </div>
                 </div>
                 {!isLocked && (
-                  <ChevronRight className={`w-5 h-5 text-[#FFE500] transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`} />
+                  <ChevronRight className={`w-5 h-5 md:w-6 md:h-6 text-[#FFE500] transition-transform duration-200 ${isOpen ? 'rotate-90' : 'group-hover:translate-x-1'}`} />
                 )}
               </button>
               {isOpen && (
-                <div className="px-4 pb-3.5 border-t border-[#1F1F1F]">
-                  <div className="py-2.5 border-b border-[#1A1A1A]">
-                    <div className="font-mono text-[8px] uppercase tracking-wider text-[#FFE500] mb-1.5">What it is</div>
-                    <div className="text-[12px] leading-relaxed text-[#ABABAB]">{lesson.what}</div>
+                <div className="px-4 md:px-6 pb-5 border-t border-[#222] bg-[#0A0A0A]">
+                  <div className="py-4 border-b border-[#1A1A1A]">
+                    <div className="font-mono text-[10px] md:text-[11px] uppercase tracking-wider text-[#FFE500] mb-2 font-medium">What it is</div>
+                    <div className="text-[13px] md:text-[14px] leading-relaxed text-[#ABABAB]">{lesson.what}</div>
                   </div>
-                  <div className="py-2.5 border-b border-[#1A1A1A]">
-                    <div className="font-mono text-[8px] uppercase tracking-wider text-[#FFE500] mb-1.5">Why it matters</div>
-                    <div className="text-[12px] leading-relaxed text-[#ABABAB]">{lesson.why}</div>
+                  <div className="py-4 border-b border-[#1A1A1A]">
+                    <div className="font-mono text-[10px] md:text-[11px] uppercase tracking-wider text-[#FFE500] mb-2 font-medium">Why it matters</div>
+                    <div className="text-[13px] md:text-[14px] leading-relaxed text-[#ABABAB]">{lesson.why}</div>
                   </div>
-                  <div className="py-2.5">
-                    <div className="font-mono text-[8px] uppercase tracking-wider text-[#FFE500] mb-1.5">Example</div>
-                    <div className="bg-[#0A0A0A] border-l-[3px] border-[#FFE500] p-2.5 font-mono text-[10px] text-[#F5F5F5] leading-relaxed break-words">
+                  <div className="py-4">
+                    <div className="font-mono text-[10px] md:text-[11px] uppercase tracking-wider text-[#FFE500] mb-2 font-medium">Example</div>
+                    <div className="bg-gradient-to-br from-[#1A1A1A] to-[#141414] border-l-[3px] border-[#FFE500] p-4 rounded-r-sm font-mono text-[11px] md:text-[12px] text-[#F5F5F5] leading-relaxed break-words">
                       {lesson.example}
                     </div>
                   </div>
-                  <div className="flex gap-1.5 mt-3">
+                  <div className="flex gap-2 mt-4">
                     <Button
                       onClick={() => addToPrompt(lesson.example)}
-                      className="flex-[2] bg-[#FFE500] text-[#0A0A0A] font-['Barlow_Condensed'] text-[14px] font-black tracking-wider uppercase h-auto py-3 hover:bg-[#E6CE00]"
+                      className="flex-[2] bg-gradient-to-r from-[#FFE500] to-[#FFD000] text-[#0A0A0A] font-['Barlow_Condensed'] text-[14px] md:text-[16px] font-black tracking-wider uppercase h-auto py-3 md:py-4 hover:from-[#FFD000] hover:to-[#FFCC00] shadow-md transition-all"
                     >
                       ADD TO PROMPT →
                     </Button>
@@ -1021,13 +1037,13 @@ function LearnScreen() {
                       <Button
                         onClick={() => completeLesson(lesson.id)}
                         variant="outline"
-                        className="flex-1 border border-[#333] bg-transparent text-[#F5F5F5] font-['Barlow_Condensed'] font-black tracking-wider uppercase h-auto py-3 hover:border-[#FFE500] hover:text-[#FFE500]"
+                        className="flex-1 border-2 border-[#333] bg-transparent text-[#F5F5F5] font-['Barlow_Condensed'] text-[12px] md:text-[14px] font-bold tracking-wider uppercase h-auto py-3 md:py-4 hover:border-[#00FF88] hover:text-[#00FF88] transition-all"
                       >
                         DONE ✓
                       </Button>
                     )}
                     {isDone && (
-                      <div className="flex-1 flex items-center justify-center bg-[#00FF88] text-black font-['Barlow_Condensed'] font-black tracking-wider uppercase">
+                      <div className="flex-1 flex items-center justify-center bg-[#00FF88] text-black font-['Barlow_Condensed'] text-[12px] md:text-[14px] font-black tracking-wider uppercase rounded-sm shadow-md">
                         COMPLETE ✓
                       </div>
                     )}
