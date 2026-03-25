@@ -402,43 +402,49 @@ function HomeScreen() {
             <button
               key={item.num}
               onClick={() => quickStart(item.type)}
-              className={`qs-card text-left transition-all active:scale-[0.98] relative overflow-hidden group ${
+              className={`qs-card text-left transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden group cursor-pointer ${
                 item.featured 
-                  ? 'col-span-2 bg-[#0A0A0A] border-b-2 border-[#FFE500] p-4' 
-                  : `bg-[#111111] border-b border-[#1F1F1F] p-4 ${isLeftColumn ? 'border-r border-[#1F1F1F]' : ''}`
+                  ? 'col-span-2 bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] border-b-2 border-[#FFE500] p-5 md:p-6' 
+                  : `bg-gradient-to-br from-[#1A1A1A] to-[#111111] border-b border-[#2A2A2A] p-5 md:p-6 ${isLeftColumn ? 'border-r border-[#2A2A2A]' : ''}`
               }`}
             >
             {/* Background accent */}
             <div 
-              className="absolute top-0 right-0 w-20 h-20 opacity-5 group-hover:opacity-10 transition-opacity"
+              className="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 opacity-10 group-hover:opacity-20 transition-opacity"
               style={{ background: `radial-gradient(circle at top right, ${item.accent}, transparent 70%)` }}
             />
             
+            {/* Hover overlay */}
+            <div 
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{ background: `linear-gradient(135deg, ${item.accent}05, transparent 50%)` }}
+            />
+            
             <div className="relative z-10">
-              <div className="flex items-start justify-between mb-2">
-                <div className="font-['Barlow_Condensed'] text-[40px] font-black leading-none" style={{ color: item.featured ? '#1F1F1F' : '#1F1F1F' }}>{item.num}</div>
-                <item.icon className="w-6 h-6 opacity-30 group-hover:opacity-60 transition-opacity" style={{ color: item.accent }} />
+              <div className="flex items-start justify-between mb-3">
+                <div className="font-['Barlow_Condensed'] text-[32px] md:text-[48px] font-black leading-none" style={{ color: item.accent }}>{item.num}</div>
+                <item.icon className="w-5 h-5 md:w-6 md:h-6 opacity-40 group-hover:opacity-80 transition-opacity" style={{ color: item.accent }} />
               </div>
               
-              <div className="font-['Barlow_Condensed'] text-[20px] font-black tracking-wide uppercase text-[#F5F5F5] mb-1 group-hover:text-white transition-colors">
+              <div className="font-['Barlow_Condensed'] text-[18px] md:text-[22px] font-bold tracking-wide uppercase text-[#F5F5F5] mb-1 group-hover:text-white transition-colors">
                 {item.title}
               </div>
               
-              <div className="font-mono text-[9px] text-[#5A5A5A] uppercase tracking-wider group-hover:text-[#7A7A7A] transition-colors">
+              <div className="font-mono text-[10px] md:text-[11px] text-[#8A8A8A] uppercase tracking-wider group-hover:text-[#ABABAB] transition-colors">
                 {item.desc}
               </div>
               
-              <div className="mt-3 flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider" style={{ color: item.accent }}>
-                <span className="w-1.5 h-1.5 rounded-full" style={{ background: item.accent }} />
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity">Start Building</span>
-                <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity -ml-1" />
+              <div className="mt-4 flex items-center gap-2 text-[11px] md:text-[12px] font-mono font-medium uppercase tracking-wider" style={{ color: item.accent }}>
+                <span className="w-2 h-2 rounded-full" style={{ background: item.accent }} />
+                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">Start Building</span>
+                <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 -ml-1" />
               </div>
             </div>
             
             {item.featured && (
-              <div className="absolute bottom-3.5 right-3.5 flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-[#FFE500]" />
-                <span className="text-[9px] font-mono font-bold uppercase text-[#FFE500]">RECOMMENDED</span>
+              <div className="absolute bottom-4 right-4 md:bottom-5 md:right-5 flex items-center gap-2 bg-[#FFE500] px-3 py-1.5">
+                <Sparkles className="w-4 h-4 text-[#0A0A0A]" />
+                <span className="text-[10px] font-mono font-bold uppercase text-[#0A0A0A]">RECOMMENDED</span>
               </div>
             )}
           </button>
