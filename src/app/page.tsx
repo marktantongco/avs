@@ -1133,45 +1133,48 @@ function GenerateScreen() {
   return (
     <div ref={outputRef} className="h-full overflow-y-auto overflow-x-hidden overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
       {/* Header */}
-      <div className="gen-header bg-[#FFE500] px-4 py-3.5 pb-2.5 relative overflow-hidden">
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-repeat-x" style={{
-          backgroundImage: 'repeating-linear-gradient(90deg, #0A0A0A 0px, #0A0A0A 10px, #FFE500 10px, #FFE500 20px)'
+      <div className="gen-header bg-gradient-to-r from-[#FFE500] via-[#FFE500] to-[#FFD000] px-4 md:px-6 py-4 md:py-5 relative overflow-hidden">
+        <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-repeat-x" style={{
+          backgroundImage: 'repeating-linear-gradient(90deg, #0A0A0A 0px, #0A0A0A 12px, #FFE500 12px, #FFE500 24px)'
         }} />
-        <div className="font-['Barlow_Condensed'] text-[48px] font-black leading-[0.9] tracking-wide uppercase text-[#0A0A0A]">FINAL<br/>PROMPT</div>
-        <div className="font-mono text-[9px] uppercase tracking-wider text-[#0A0A0A]/50 mt-1.5">Formatted for your target tool</div>
+        <div className="font-['Barlow_Condensed'] text-[42px] md:text-[56px] font-black leading-[0.9] tracking-wide uppercase text-[#0A0A0A]">FINAL<br/>PROMPT</div>
+        <div className="font-mono text-[10px] md:text-[11px] uppercase tracking-wider text-[#0A0A0A]/60 mt-2">Formatted for your target tool</div>
       </div>
 
       {/* Big Output */}
-      <div className="big-output mx-4 mt-3.5 bg-[#111111] border-2 border-[#2A2A2A] p-4 font-mono text-[11px] leading-relaxed text-[#F5F5F5] min-h-[110px] break-words">
-        <div className="inline-block bg-[#FFE500] text-[#0A0A0A] text-[8px] font-bold uppercase tracking-wider px-2 py-1 mb-2.5">
+      <div className="big-output mx-4 md:mx-6 mt-4 md:mt-5 bg-gradient-to-br from-[#1A1A1A] to-[#141414] border-2 border-[#FFE500] p-5 md:p-6 font-mono text-[12px] md:text-[14px] leading-relaxed text-[#F5F5F5] min-h-[120px] md:min-h-[150px] break-words shadow-lg rounded-sm">
+        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FFE500] to-[#FFD000] text-[#0A0A0A] text-[9px] md:text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 mb-3 rounded-sm shadow-sm">
+          <span className="w-2 h-2 bg-[#0A0A0A] rounded-full animate-pulse" />
           {tool?.name?.toUpperCase()}
         </div>
-        <div>{prompt}</div>
+        <div className="mt-2">{prompt}</div>
       </div>
 
       {/* Copy Button */}
       <button
         onClick={copyPrompt}
-        className="copy-btn mx-4 mt-3 flex items-center justify-center gap-2.5 p-4.5 bg-[#FFE500] text-[#0A0A0A] font-['Barlow_Condensed'] text-[28px] font-black tracking-wider uppercase transition-all active:scale-[0.98] active:bg-[#E6CE00] relative overflow-hidden"
+        className="copy-btn mx-4 md:mx-6 mt-4 flex items-center justify-center gap-3 py-4 md:py-5 bg-gradient-to-r from-[#FFE500] to-[#FFD000] text-[#0A0A0A] font-['Barlow_Condensed'] text-[24px] md:text-[32px] font-black tracking-wider uppercase transition-all hover:from-[#FFD000] hover:to-[#FFCC00] active:scale-[0.98] shadow-lg rounded-sm"
       >
-        📋 COPY PROMPT
+        <span className="text-[28px] md:text-[36px]">📋</span>
+        COPY PROMPT
       </button>
 
       {/* Action Buttons */}
-      <div className="flex gap-1.5 px-4 mt-2.5">
-        <Button onClick={sharePrompt} variant="outline" className="flex-1 border border-[#333] bg-transparent text-[#F5F5F5] font-['Barlow_Condensed'] text-[13px] font-black tracking-wider uppercase h-auto py-3 hover:border-[#FFE500] hover:text-[#FFE500]">🔗 SHARE</Button>
-        <Button onClick={() => savePrompt(prompt.substring(0, 30) + '...')} variant="outline" className="flex-1 border border-[#333] bg-transparent text-[#F5F5F5] font-['Barlow_Condensed'] text-[13px] font-black tracking-wider uppercase h-auto py-3 hover:border-[#FFE500] hover:text-[#FFE500]">💾 SAVE</Button>
-        <Button onClick={exportJSON} variant="outline" className="flex-1 border border-[#333] bg-transparent text-[#F5F5F5] font-['Barlow_Condensed'] text-[13px] font-black tracking-wider uppercase h-auto py-3 hover:border-[#FFE500] hover:text-[#FFE500]">{ } JSON</Button>
+      <div className="flex gap-2 px-4 md:px-6 mt-3">
+        <Button onClick={sharePrompt} variant="outline" className="flex-1 border-2 border-[#333] bg-transparent text-[#F5F5F5] font-['Barlow_Condensed'] text-[12px] md:text-[14px] font-bold tracking-wider uppercase h-auto py-3 md:py-4 hover:border-[#FFE500] hover:text-[#FFE500] transition-all">🔗 SHARE</Button>
+        <Button onClick={() => savePrompt(prompt.substring(0, 30) + '...')} variant="outline" className="flex-1 border-2 border-[#333] bg-transparent text-[#F5F5F5] font-['Barlow_Condensed'] text-[12px] md:text-[14px] font-bold tracking-wider uppercase h-auto py-3 md:py-4 hover:border-[#FFE500] hover:text-[#FFE500] transition-all">💾 SAVE</Button>
+        <Button onClick={exportJSON} variant="outline" className="flex-1 border-2 border-[#333] bg-transparent text-[#F5F5F5] font-['Barlow_Condensed'] text-[12px] md:text-[14px] font-bold tracking-wider uppercase h-auto py-3 md:py-4 hover:border-[#FFE500] hover:text-[#FFE500] transition-all">📄 JSON</Button>
       </div>
 
       {/* Batch Section */}
-      <div className="mx-4 mt-3.5 bg-[#111111] border border-[#2A2A2A]">
-        <div className="bg-[#1A1A1A] px-3.5 py-2.5 font-['Barlow_Condensed'] text-[16px] font-black tracking-wider uppercase text-[#FFE500] border-b border-[#2A2A2A]">
-          ⚡ BATCH GENERATE
+      <div className="mx-4 md:mx-6 mt-5 md:mt-6 bg-gradient-to-br from-[#151515] to-[#111111] border border-[#2A2A2A] rounded-sm overflow-hidden">
+        <div className="bg-gradient-to-r from-[#1A1A1A] to-[#151515] px-4 md:px-5 py-3 md:py-4 flex items-center gap-3 border-b border-[#2A2A2A]">
+          <span className="text-[20px]">⚡</span>
+          <span className="font-['Barlow_Condensed'] text-[16px] md:text-[18px] font-black tracking-wider uppercase text-[#FFE500]">BATCH GENERATE</span>
         </div>
-        <div className="p-3">
-          <div className="font-mono text-[9px] tracking-widest uppercase text-[#5A5A5A] mb-2">VARY THIS PARAMETER</div>
-          <div className="flex flex-wrap gap-1.5">
+        <div className="p-4 md:p-5">
+          <div className="font-mono text-[10px] md:text-[11px] tracking-widest uppercase text-[#8A8A8A] mb-3 font-medium">Vary this parameter across multiple prompts</div>
+          <div className="flex flex-wrap gap-2">
             {(['mood', 'style', 'lighting', 'tool'] as const).map((axis) => (
               <Chip
                 key={axis}
@@ -1183,7 +1186,7 @@ function GenerateScreen() {
           </div>
           <Button
             onClick={runBatch}
-            className="w-full mt-3 bg-[#FFE500] text-[#0A0A0A] font-['Barlow_Condensed'] text-[16px] font-black tracking-wider uppercase h-auto py-3 hover:bg-[#E6CE00]"
+            className="w-full mt-4 bg-gradient-to-r from-[#FFE500] to-[#FFD000] text-[#0A0A0A] font-['Barlow_Condensed'] text-[16px] md:text-[18px] font-black tracking-wider uppercase h-auto py-3 md:py-4 hover:from-[#FFD000] hover:to-[#FFCC00] shadow-md transition-all"
           >
             RUN BATCH →
           </Button>
@@ -1192,15 +1195,15 @@ function GenerateScreen() {
 
       {/* Batch Results */}
       {batchResults.length > 0 && (
-        <div className="px-4 mt-3.5">
-          <div className="flex items-center gap-2.5 mb-2.5">
-            <span className="font-mono text-[9px] tracking-widest uppercase text-[#5A5A5A]">BATCH — {batchResults.length} VARIANTS</span>
-            <div className="flex-1 h-px bg-[#2A2A2A]" />
+        <div className="px-4 md:px-6 mt-5">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="font-mono text-[10px] md:text-[11px] tracking-widest uppercase text-[#FFE500] font-medium">BATCH — {batchResults.length} VARIANTS</span>
+            <div className="flex-1 h-px bg-gradient-to-r from-[#2A2A2A] to-transparent" />
           </div>
           {batchResults.map((r, i) => (
             <div 
               key={i} 
-              className="batch-result mb-2.5 opacity-0"
+              className="batch-result mb-3 opacity-0"
               ref={(el) => {
                 if (el) {
                   gsap.fromTo(el, 
@@ -1210,13 +1213,13 @@ function GenerateScreen() {
                 }
               }}
             >
-              <div className="font-mono text-[9px] uppercase tracking-wider text-[#5A5A5A] mb-1.5 flex items-center gap-2">
-                <span className="bg-[#FFE500] text-black px-1.5 py-0.5 font-bold">#{String(i + 1).padStart(2, '0')}</span>
-                {r.label.toUpperCase()}
+              <div className="font-mono text-[9px] md:text-[10px] uppercase tracking-wider text-[#8A8A8A] mb-2 flex items-center gap-2">
+                <span className="bg-[#FFE500] text-black px-2 py-1 font-bold rounded-sm">#{String(i + 1).padStart(2, '0')}</span>
+                <span className="text-[#F5F5F5]">{r.label.toUpperCase()}</span>
               </div>
               <button
                 onClick={() => { navigator.clipboard.writeText(r.prompt); showToast(`COPIED #${i + 1}`) }}
-                className="w-full text-left bg-[#1A1A1A] border border-l-[3px] border-[#2A2A2A] border-l-[#FFE500] p-3.5 font-mono text-[10px] text-[#F5F5F5] leading-relaxed break-words hover:border-[#FFE500] transition-colors"
+                className="w-full text-left bg-gradient-to-br from-[#1A1A1A] to-[#141414] border-l-[3px] border-[#FFE500] p-4 font-mono text-[11px] md:text-[12px] text-[#F5F5F5] leading-relaxed break-words hover:bg-[#1A1A1A] transition-colors rounded-r-sm shadow-md"
               >
                 {r.prompt}
               </button>
